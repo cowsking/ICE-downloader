@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import time
 import os
 
-username = input("user:")
-password = input("pass:")
+username = raw_input("user:")
+password = raw_input("password:")
 s = requests.session()
 login_data = {'username':username,'password':password}
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
@@ -24,7 +24,7 @@ def findCourse():
         urls = list(set(urls))
         return urls
     except:
-        print("failure")
+        print "failure"
 
 
 
@@ -44,7 +44,7 @@ def findSource(Course):
             temp_session = soup.select('''a[onclick="this.target='_blank'"]''')[0]
             download_URLs.append(temp_session.get("href"))
         except:
-            print("No file to download")
+            print "No file to download"
         #print(download_URLs)
     return download_URLs
 
@@ -54,7 +54,7 @@ def downloader(url, path):
     file = open(path, 'wb')
     file.write(file1.content)
     name = path.split('/')[-1]
-    print('download success: '+ name)
+    print'download success: '+ name
     file.close()
 
 def findCourse_Name(Course):
@@ -71,7 +71,7 @@ urls = []
 urls = findCourse()
 for url in urls:
     Name = str(findCourse_Name(url))
-    print(Name)
+    print Name
     print
     print
 
