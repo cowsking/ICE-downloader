@@ -1,11 +1,10 @@
-
 import requests
 from bs4 import BeautifulSoup
 import time
 import os
 
-username = raw_input("user:")
-password = raw_input("password:")
+username = input("user:")
+password = input("pass:")
 s = requests.session()
 login_data = {'username':username,'password':password}
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
@@ -23,9 +22,10 @@ def findCourse():
             urls.append(course.get("href"))
         urls = list(set(urls))
         return urls
-    except:
-        print "failure"
-
+    except urllib2.URLError as e:
+        print(type(e))
+    except socket.timeout as e:
+        print(type(e))
 
 
 def findSource(Course):
@@ -43,8 +43,8 @@ def findSource(Course):
         try:
             temp_session = soup.select('''a[onclick="this.target='_blank'"]''')[0]
             download_URLs.append(temp_session.get("href"))
-        except:
-            print "No file to download"
+        except Exception as e:
+            print(type(e))
         #print(download_URLs)
     return download_URLs
 
@@ -54,7 +54,7 @@ def downloader(url, path):
     file = open(path, 'wb')
     file.write(file1.content)
     name = path.split('/')[-1]
-    print'download success: '+ name
+    print('download success: '+ name)
     file.close()
 
 def findCourse_Name(Course):
@@ -71,7 +71,7 @@ urls = []
 urls = findCourse()
 for url in urls:
     Name = str(findCourse_Name(url))
-    print Name
+    print(Name)
     print
     print
 
