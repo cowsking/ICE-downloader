@@ -79,6 +79,7 @@ for url in urls:
     for source_downloaded in sources_downloaded:
         file_name = str(source_downloaded.split('/')[-1])
         file_name = file_name.replace('%20',' ')
+        Name = Name.replace('/','-')
         if not os.path.exists("./"+Name+"/"):
             os.makedirs("./"+Name+"/")
         path_name = "./"+Name+"/"+file_name
